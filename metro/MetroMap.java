@@ -1,40 +1,63 @@
 package metro;
 
 
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MetroMap {
-    private LinkedList<Station> map;
+    private Map<String, Line> metroMap;
 
 
     public MetroMap() {
-        map = new LinkedList<>();
+        metroMap = new HashMap<>();
     }
 
-    public LinkedList<Station> getMap() {
-        return map;
+
+    public void append(String LineName, String stationName) {
+        Line line = getLine(LineName);
+        line.add(stationName);
+
     }
 
-    public void add(String name) {
-        Station station = new Station(name);
-        if (map.size() > 0) {
-            Station last = getTail();
-            last.setNext(station);
+    public void addHead(String LineName, String stationName) {
+        Line line = getLine(LineName);
+        line.addFirst(stationName);
+    }
+
+    public String output(String lineName) {
+        Line line = metroMap.get(lineName);
+        return line.toString();
+    }
+
+    private Line getLine(String LineName) {
+        createLineIfNecessary(LineName);
+        Line line = metroMap.get(LineName);
+        return line;
+    }
+
+    private void createLineIfNecessary(String lineName) {
+        if (metroMap.get(lineName) == null) {
+            metroMap.put(lineName, new Line());
+            Line line = metroMap.get(lineName);
+            line.initiateLine();
         }
-        map.add(station);
-
     }
 
-    int getSize() {
-        return map.size();
+    public void remove(String lineName, String station) {
+        Line line = metroMap.get(lineName);
+        line.remove(station);
     }
 
-    Station getHead() {
-        return map.getFirst();
-    }
-
-    Station getTail() {
-        return map.getLast();
-    }
+//    int getSize() {
+//        return map.size();
+//    }
+//
+//    Station getHead() {
+//        return map.getFirst();
+//    }
+//
+//    Station getTail() {
+//        return map.getLast();
+//    }
 }
 

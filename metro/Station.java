@@ -3,6 +3,7 @@ package metro;
 public class Station {
    private String name;
    private Station next;
+   private Station previous;
 
     public Station(String name) {
         this.name = name;
@@ -18,5 +19,13 @@ public class Station {
 
     public Station getNext() {
         return next;
+    }
+
+    public void setPrevious(Station previous) {
+        this.previous = previous;
+    }
+
+    public Station getPrevious() {
+        return previous;
     }
 }
